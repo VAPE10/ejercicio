@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery.mobile-1.4.5.min.js"></script>
+            <title>Aplicacion Movil </title>
+            
+            <script type="text/javascript">
+            $(document).ready(function inicio(){
+                var btnEnvio=$("#enviar");
+                btnEnvio.click(function enviarDatos(){
+                    
+                    var nom=$("#nombre").val();
+                    var app=$("#apepa").val();
+                    var apm=$("#apema").val();
+                    var tel=$("#telefono").val();
+                    
+      $.ajax({
+          type:"POST",
+          url:"envio.php",
+          data:"nombre="+nom+"&Apellido_Paterno="+app+"&Apellido_Materno="+apm+"&Telefono="+tel,
+          success:recepcion
+      })
+     });
+     function recepcion(datos){
+         var resp=$("#respuesta");
+         resp.html(datos);
+     }
+    });
+</script>
+</head>
+<body>
+<div data-role="page" id="Principal" data-theme="a">
+    <div data-role="header">
+        <p style="text-align:center">Envio de datos desde un formulario</p>
+    </div>
+    <div data-role="Content">
+        
+        <form method="POST" action="envio.php">
+            <div class="ui-field-contain">
+                
+                <label for="nombre">Nombre: </label>
+                <input type="text" name="nombre" id="nombre">
+                
+                <label for="apepa">Apellido Paterno: </label>
+                <input type="text" name="apepa" id="apepa">
+                
+                <label for="apema">Apellido Materno: </label>
+                <input type="text" name="apema" id="apema">
+                
+                <label for="telefono">Número de Télefono: </label>
+                <input type="text" name="telefono" id="telefono">            
+               
+            </div>
+            <input type="button" name="enviar" id="enviar" value="Enviar">
+        </form>
+        <div id="respuesta">
+            
+        </div>
+    </div>
+    <div data-role="footer">
+        <p style="text-align:center;font-size: 15px;">Derechos reservados</p>
+    </div>
+</div>
+</body>
+</html>
